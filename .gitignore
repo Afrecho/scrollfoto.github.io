@@ -1,0 +1,5 @@
+node_modules/
+media_scroll/
+package-lock.json
+*.log
+*.tmp
