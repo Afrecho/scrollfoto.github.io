@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scroll Web</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <link rel="stylesheet" href="styleScroll.css">
+    <style>
+    </style>
+</head>
+
+<body>
+    <header>
+      <h1>HEADER</h1>
+    </header>
+  
+    <div class="timeline">
+      <div class="timeline-marker"></div>
+    </div>
+  
+    <div id="app">
+        <div class="container">
+          <template v-for="(item, index) in videoList" :key="index">
+            <div class="content-box" :class="getRandomAlignment()">
+              <template v-if="isVideo(item)">
+                <video :src="'/media_scroll/' + item" controls></video>
+              </template>
+              <template v-else>
+                <img :src="'/media_scroll/' + item" alt="Imagen" />
+              </template>
+            </div>
+          </template>
+        </div>
+      </div>
+  
+    <div class="timer">00:00</div>
+  
+    <script>
+        new Vue({
+    el: '#app',
+    data: {
+      videoList: [],
+    },
+    mounted() {
+      fetch('http://localhost:3000/video-list')
+        .then(response => response.json())
+        .then(data => {
+          this.videoList = data;
+        })
+        .catch(error => console.error('Error al obtener los videos:', error));
+    },
+    methods: {
+      isVideo(file) {
+        return file.endsWith('.mp4') || file.endsWith('.webm') || file.endsWith('.avi'); // otros formatos de video si fuera necesario
+      },
+      getRandomAlignment() {
+        // Retorna una clase aleatoria de izquierda o derecha
+        return Math.random() < 0.5 ? 'left-align' : 'right-align';
+      }
+
+
+
+    }
+  });
+        //FIN IMPRESION DIVS
+
+
+
+      </script>
+      
+  </body>
+</html>
