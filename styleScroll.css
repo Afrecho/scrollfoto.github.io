@@ -46,6 +46,7 @@ header {
     overflow-x: hidden;
     position: relative;
     scroll-behavior: smooth;
+    background-color: rgb(54, 53, 53);
 }
 
 .content-box {
@@ -75,5 +76,11 @@ header {
 
 video, img {
     width: auto;
-    height: 320px;
+    height: 60vh;
+    opacity: 0.3;  
+    transition: opacity 0.3s ease; 
 }
+
+img:hover, video:hover {
+    opacity: 1;  
+  }

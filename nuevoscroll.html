@@ -3,7 +3,9 @@
 <head>
     <title>Scroll Web</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <script src="playFuncion.js"></script>
     <link rel="stylesheet" href="styleScroll.css">
+    
     <style>
     </style>
 </head>
@@ -22,7 +24,7 @@
           <template v-for="(item, index) in videoList" :key="index">
             <div class="content-box" :class="getRandomAlignment()">
               <template v-if="isVideo(item)">
-                <video :src="'/media_scroll/' + item" controls></video>
+                <video :src="'/media_scroll/' + item" controls @mouseenter="playVideo($event)" @mouseleave="pauseVideo($event)" ></video>
               </template>
               <template v-else>
                 <img :src="'/media_scroll/' + item" alt="Imagen" />
@@ -53,9 +55,25 @@
         return file.endsWith('.mp4') || file.endsWith('.webm') || file.endsWith('.avi'); // otros formatos de video si fuera necesario
       },
       getRandomAlignment() {
-        // Retorna una clase aleatoria de izquierda o derecha
-        return Math.random() < 0.5 ? 'left-align' : 'right-align';
-      }
+        // Retorna una clase aleatoria: izquierda, centro o derecha
+        const randomValue = Math.random();
+        if (randomValue < 0.33) {
+          return 'left-align'; // 33% izquierda
+        } else if (randomValue < 0.66) {
+          return 'center-align'; // 33% centro
+        } else {
+          return 'right-align'; // 34% derecha
+        }
+      },
+      playVideo(event) {
+    const video = event.target;
+    video.play();
+  },
+  pauseVideo(event) {
+    const video = event.target;
+    video.pause();
+    video.currentTime = 0;
+  },
 
 
 
